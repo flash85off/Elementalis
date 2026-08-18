@@ -1,0 +1,18 @@
+ELEMENTALIS V25 — CONFIRMATION E-MAIL
+
+1. Dans Supabase > Authentication > URL Configuration:
+   Site URL: http://localhost:3000
+   Redirect URLs: http://localhost:3000/**
+
+2. Dans Elementalis > Mode édition > Cloud:
+   URL: https://awrcsxljjxejbotbysni.supabase.co (ou la Project URL exacte de Supabase)
+   Clé: sb_publishable_...
+   E-mail: ton adresse
+   Mot de passe: ton mot de passe Supabase
+
+3. Pour un nouveau compte, clique sur Créer mon compte.
+   Le lien de confirmation est explicitement configuré pour revenir à l'URL locale du site.
+
+4. Si un compte existe déjà mais n'est pas confirmé, utilise « Renvoyer l’e-mail ».
+
+Si Supabase indique que l'adresse est déjà confirmée, utilise simplement « Se connecter ».

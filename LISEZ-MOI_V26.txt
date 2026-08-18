@@ -1,0 +1,10 @@
+ELEMENTALIS v26 — finition d'ambiance
+
+Cette version reprend la v25 et ajoute uniquement une passe visuelle :
+- reflets très discrets au survol des panneaux ;
+- micro-animations sur les cartes ;
+- ornements autour des titres de chapitres ;
+- petite présence lumineuse dans la note de la barre latérale ;
+- aucune modification volontaire du système Cloud/Supabase.
+
+Le mode édition et la synchronisation restent ceux de la version précédente.

@@ -1,0 +1,32 @@
+ELEMENTALIS — SYNCHRONISATION CLOUD
+
+Ce dossier ajoute une synchronisation facultative avec Supabase au mode édition.
+Le site continue à fonctionner localement si tu ne configures rien.
+
+CE QUE TU DOIS FAIRE
+
+1. Crée un compte/projet sur Supabase.
+2. Dans le projet, ouvre SQL Editor.
+3. Copie-colle le contenu de SUPABASE_SCHEMA.sql et exécute-le.
+4. Dans Authentication > Providers, active Email.
+   Pour éviter une étape de confirmation au début, tu peux désactiver la confirmation d'e-mail.
+5. Dans Project Settings > API, copie :
+   - Project URL
+   - anon public key
+   Ne donne JAMAIS la service_role key au site.
+6. Ouvre Elementalis > Mode édition > onglet "Cloud".
+7. Colle l'URL et la clé anon.
+8. Crée ton compte avec "Créer mon compte" puis connecte-toi.
+
+ENSUITE
+
+- "Enregistrer dans le cloud" envoie les archives du navigateur vers Supabase.
+- "Charger depuis le cloud" récupère la dernière version cloud.
+- Le bouton "Enregistrer les modifications" tente aussi une synchronisation si le cloud est configuré.
+- Tu peux continuer à utiliser Exporter/Importer en secours.
+
+IMPORTANT POUR QUE MOI JE PUISSE VOIR LES MODIFICATIONS
+
+La partie cloud permet à Elementalis de ne plus dépendre du navigateur. En revanche, dans cette conversation je n'ai pas actuellement accès à un connecteur Supabase permettant de lire directement ta base privée. La synchronisation règle donc le stockage et la récupération entre tes appareils, mais ne me donne pas automatiquement accès à ton contenu.
+
+Pour que je puisse ensuite travailler directement sur tes données sans que tu m'envoies le ZIP, il faudra que le stockage soit relié à un service auquel ChatGPT dispose d'un connecteur de lecture (par exemple un dépôt GitHub accessible par le connecteur GitHub). Le site v22 est préparé pour le cloud, mais cette dernière étape nécessite ton compte/service.

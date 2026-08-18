@@ -1,0 +1,22 @@
+ELEMENTALIS — MODE ÉDITION
+
+Cette version repart de la v15 et ajoute un atelier d'édition local.
+
+Accès :
+- Clique sur « Mode édition » (bouton en bas à gauche).
+- Mot de passe initial : elementalis
+- Tu peux le changer depuis l'onglet « Mot de passe ».
+
+Fonctions :
+- Modifier directement les titres, introductions, paragraphes et cartes d'univers.
+- Ajouter des chapitres personnalisés dans le menu de gauche.
+- Ajouter de nouveaux blocs de texte à un chapitre.
+- Supprimer les chapitres personnalisés.
+- Exporter les archives dans un fichier JSON.
+- Importer un fichier JSON exporté auparavant.
+- Réinitialiser les modifications locales.
+
+IMPORTANT :
+Le site reste un site statique HTML/CSS/JS. Les changements sont stockés dans le localStorage du navigateur et ne modifient pas le fichier index.html sur le disque.
+Le mot de passe sert donc surtout à cacher l'éditeur aux visiteurs ordinaires ; ce n'est PAS une authentification serveur réellement sécurisée.
+Pour une vraie protection et une sauvegarde en ligne, il faudra plus tard connecter Elementalis à un backend/base de données.

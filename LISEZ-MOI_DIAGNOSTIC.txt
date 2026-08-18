@@ -1,0 +1,13 @@
+ELEMENTALIS v24 — DIAGNOSTIC SUPABASE
+
+Cette version remplace le vague « Failed to fetch » par un diagnostic précis.
+
+Dans Mode édition > Cloud :
+1. Mets l’URL du projet Supabase (pas l’URL /dashboard/project/...).
+2. Mets la clé Publishable sb_publishable_...
+3. Clique d’abord sur « Tester la connexion ».
+4. Si le test est OK, clique sur « Créer mon compte ».
+
+Si la création échoue, le message affiche maintenant le type d’erreur et, quand disponible, le code HTTP.
+
+Ne mets JAMAIS une clé sb_secret_... ou service_role dans Elementalis.

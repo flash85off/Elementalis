@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elementalis — Wiki • Édition 26</title>
+<style>
+:root {
+  --bg:#0d0b0a; --bg2:#15110f; --panel:#191411; --panel2:#231b16;
+  --text:#efe7d8; --muted:#a99d8c; --accent:#c59a5a; --accent2:#e0bd7a;
+  --border:#493726; --line:#60482d; --glow:rgba(197,154,90,.16);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);
+ background:
+ radial-gradient(circle at 12% 10%,rgba(142,73,36,.12),transparent 28%),
+ radial-gradient(circle at 88% 0%,rgba(196,145,73,.08),transparent 30%),
+ linear-gradient(135deg,#0b0908 0%,#120f0d 48%,#0b0908 100%);
+ min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.08;background-image:radial-gradient(rgba(255,255,255,.55) .45px,transparent .45px);background-size:5px 5px;mix-blend-mode:soft-light}
+button{font:inherit}
+html{scrollbar-width:thin;scrollbar-color:#6e5034 #100d0b}
+body,aside{scrollbar-width:thin;scrollbar-color:#6e5034 #100d0b}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:#100d0b}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#6e5034,#3d2a1d);border:2px solid #100d0b;border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#96704a,#5a3d26)}
+::-webkit-scrollbar-corner{background:#100d0b}
+.layout{min-height:100vh;display:grid;grid-template-columns:285px 1fr}
+aside{position:sticky;top:0;height:100vh;padding:25px 18px;background:linear-gradient(180deg,rgba(17,13,11,.97),rgba(12,10,9,.92));border-right:1px solid var(--line);box-shadow:12px 0 45px rgba(0,0,0,.22);overflow:auto}
+aside:after{content:"✦";position:absolute;bottom:20px;left:0;right:0;text-align:center;color:#735633;font-size:17px;opacity:.7}
+.logo{font-family:Georgia,serif;font-size:26px;letter-spacing:3px;color:#e7c58c;padding:4px 12px 22px;text-shadow:0 0 18px rgba(197,154,90,.12)}
+.logo small{display:block;font-family:Inter,sans-serif;font-size:10px;color:#897a67;font-weight:700;letter-spacing:1.8px;margin-top:7px;text-transform:uppercase}
+.home-nav,.nav-item{width:100%;text-align:left;cursor:pointer;transition:.22s}
+.home-nav{border:1px solid #60482d;background:linear-gradient(135deg,#2a1f17,#1c1511);color:#f0dfbf;padding:13px 12px;margin:0 0 14px;border-radius:10px;font-size:15px;box-shadow:inset 0 1px rgba(255,255,255,.04)}
+.home-nav:hover,.home-nav.active{border-color:#a77b45;background:linear-gradient(135deg,#342519,#211812);box-shadow:0 8px 25px rgba(0,0,0,.18),inset 0 0 20px rgba(197,154,90,.05)}
+.nav-home-icon{display:inline-flex;width:18px;height:18px;margin:0 9px 0 1px;vertical-align:-4px;align-items:center;justify-content:center;color:#d6b47c;pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.28))}.nav-home-icon svg{display:block;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.history-toggle{display:flex;align-items:center;justify-content:space-between}.history-toggle .chevron{font-size:12px;color:#8e7658;transition:transform .2s}.history-toggle.open .chevron{transform:rotate(180deg)}.subnav{display:none;margin:2px 0 7px 15px;padding-left:12px;border-left:1px solid #4a392a}.subnav.open{display:block}.sub-nav{width:100%;text-align:left;border:0;background:transparent;color:#918373;padding:9px 8px;border-radius:7px;cursor:pointer;font-size:12.5px;line-height:1.35;transition:.2s}.sub-nav:hover,.sub-nav.active{background:#1b1511;color:#dec79f}.empty-chapter{min-height:250px;display:flex;align-items:center;justify-content:center;text-align:center}.empty-chapter-inner{max-width:650px;padding:35px}.empty-chapter-mark{font-size:38px;color:#a27a48;margin-bottom:10px}.empty-chapter h2{font-family:Georgia,serif;color:#e2c695;font-size:27px;margin:6px 0 12px}.empty-chapter p{color:#a99c8a;line-height:1.8;font-style:italic}.nav-title{color:#7f6c56;font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:2px;padding:11px 12px 7px}
+.nav-item{border:0;background:transparent;color:#c5b8a5;padding:12px;margin:3px 0;border-radius:9px;font-size:14px}
+.nav-item span{display:inline-block;width:30px;filter:grayscale(.35);opacity:.85}
+.nav-item:hover,.nav-item.active{background:#211a15;color:#f4e5cb;transform:translateX(3px);box-shadow:inset 3px 0 #a97c46}
+main{max-width:1160px;width:100%;margin:auto;padding:50px 6% 25px}
+.hero{margin-bottom:35px}.badge{display:inline-flex;padding:7px 11px;border:1px solid #6b4f32;border-radius:999px;color:#d4ae74;background:#1b1511;font-size:11px;font-weight:800;letter-spacing:1.2px}.hero h1{font-family:Georgia,serif;font-size:clamp(42px,7vw,78px);line-height:.98;letter-spacing:-2px;margin:18px 0 14px;color:#f1dfbd}.hero p{color:var(--muted);max-width:680px;font-size:17px;line-height:1.7}
+.chapter{animation:fade .25s ease}.chapter-kicker{color:#ad8250;font-size:11px;font-weight:850;letter-spacing:2.5px}.chapter h1{font-family:Georgia,serif;font-size:44px;letter-spacing:-1px;margin:8px 0;color:#ecd4aa}.intro{color:#bcae9b;font-size:17px;line-height:1.75;margin-bottom:32px}
+.section{background:linear-gradient(145deg,rgba(28,21,17,.92),rgba(18,14,12,.88));border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin:16px 0;box-shadow:0 14px 40px rgba(0,0,0,.16);position:relative;overflow:hidden}.section:before{content:"";position:absolute;top:0;left:18px;right:18px;height:1px;background:linear-gradient(90deg,transparent,#8b653d,transparent);opacity:.55}.section h2{margin:0 0 13px;font-family:Georgia,serif;font-size:21px;color:#e4c28e}.section p{color:#c9bdad;line-height:1.8;margin:9px 0}
+.pills{display:flex;flex-wrap:wrap;gap:9px}.pill{background:#211a15;border:1px solid #493725;border-radius:999px;padding:8px 12px;color:#d8cbb8;font-size:14px;transition:.2s}.clickable:hover{border-color:#9c7344;background:#2b2119;color:#f3dfbc;transform:translateY(-1px)}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:700px}th,td{padding:14px 13px;border-bottom:1px solid #3a2d22;text-align:left;vertical-align:top}th{color:#c69b5f;font-size:12px;text-transform:uppercase;letter-spacing:.7px}td{color:#d1c5b4;line-height:1.55}
+.footer{color:#776a5a;font-size:12px;margin-top:45px;padding-bottom:25px;text-align:center}
+@keyframes fade{from{opacity:.2;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(max-width:760px){.layout{grid-template-columns:1fr}aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--border)}main{padding:35px 20px}.hero h1{letter-spacing:-1px}}
+
+.element-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.element-card{position:relative;overflow:hidden;border:1px solid #4b3928;background:#18130f;color:var(--text);border-radius:14px;padding:19px 12px 17px;cursor:pointer;text-align:center;transition:.25s;box-shadow:0 10px 25px rgba(0,0,0,.14)}.element-card:after{content:"";position:absolute;inset:auto 12% 0;height:2px;background:var(--card-accent,#b58a51);opacity:.8}.element-card:hover{transform:translateY(-4px);border-color:var(--card-accent,#a67a45);background:#211a15;box-shadow:0 14px 30px rgba(0,0,0,.24)}.element-card strong{display:block;font-family:Georgia,serif;font-size:18px;margin-top:10px;color:#ead8ba}.element-card small{display:block;color:#9f917e;line-height:1.4;margin-top:5px}
+.orb{width:70px;height:70px;margin:auto;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:30px;background:#19130f;border:1px solid rgba(214,179,122,.22);box-shadow:inset 0 0 28px rgba(255,255,255,.035),0 7px 18px rgba(0,0,0,.18);overflow:hidden}.orb img{width:74%;height:74%;object-fit:contain;filter:drop-shadow(0 5px 10px rgba(0,0,0,.3))}
+.detail-art img{width:62%;height:62%;object-fit:contain;filter:drop-shadow(0 10px 22px rgba(255,255,255,.12))}
+.home-screen{animation:fade .3s ease}.home-banner{padding:40px;border-radius:18px;background:radial-gradient(circle at 82% 20%,rgba(150,82,38,.16),transparent 35%),linear-gradient(135deg,#211712,#120e0c 70%);border:1px solid #60472e;margin-bottom:18px;position:relative;overflow:hidden}.home-banner:after{content:"✦  ◇  ✦";position:absolute;right:28px;bottom:18px;color:#785a38;letter-spacing:9px;opacity:.65}.home-banner h2{font-family:Georgia,serif;font-size:clamp(36px,6vw,64px);margin:0 0 12px;letter-spacing:1px;color:#edd5a9}.home-banner p{max-width:720px;color:#c9bdad;font-size:17px;line-height:1.75;margin:0}.home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.home-card{background:linear-gradient(145deg,#1c1612,#14100e);border:1px solid #433326;border-radius:14px;padding:20px;position:relative}.home-card h3{margin:0 0 8px;color:#dfc18e;font-family:Georgia,serif}.home-card p{color:#aaa091;line-height:1.65;margin:0}.home-note{margin-top:14px;padding:16px 18px;border-radius:12px;background:#17120f;border:1px dashed #59442d;color:#aea08d}.home-note strong{color:#dec18e}@media(max-width:760px){.home-grid{grid-template-columns:1fr}}
+.fire{background:radial-gradient(circle,#7b3340,#271c32);--card-accent:#d47a45}.water{background:radial-gradient(circle,#285d78,#18243d);--card-accent:#5ea7c5}.earth{background:radial-gradient(circle,#67523a,#252234);--card-accent:#9b8b55}.air{background:radial-gradient(circle,#44677a,#1b263d);--card-accent:#a7c9d5}
+.clickable{color:#d9cbb8;cursor:pointer}.detail-placeholder{text-align:center;padding:30px 10px;color:#8f8372}.detail-placeholder span{font-size:32px;color:#c3995c}.detail-placeholder h2{color:#e6d4b5;margin:8px 0;font-family:Georgia,serif}.detail-layout{display:grid;grid-template-columns:210px 1fr;gap:28px;align-items:start}.detail-art{min-height:210px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:82px;background:radial-gradient(circle at 50% 40%,#3a2b20,#12100e 68%);border:1px solid #58412b;overflow:hidden;box-shadow:inset 0 0 30px rgba(197,154,90,.035)}.detail-art .symbol{filter:drop-shadow(0 8px 20px rgba(255,255,255,.13))}.detail-copy h2{margin:0 0 5px;font-family:Georgia,serif;font-size:30px;color:#ead2a7}.detail-tag{display:inline-block;font-size:10px;text-transform:uppercase;letter-spacing:1.4px;color:#b89a70;background:#211a15;border:1px solid #493725;border-radius:999px;padding:5px 9px;margin-bottom:14px}.detail-copy p{color:#c9bdad;line-height:1.78}.detail-copy ul{color:#c9bdad;line-height:1.75;padding-left:20px}
+.element-detail{background:linear-gradient(145deg,rgba(28,21,17,.95),rgba(15,12,10,.93))}.element-detail:after{content:"ELEMENTALIS • ARCHIVES";display:block;text-align:right;color:#5f4c37;font-size:9px;letter-spacing:2px;margin-top:20px}
+.element-detail .detail-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px}.element-tab{border:1px solid #493725;background:#1b1511;color:#c4b6a2;border-radius:10px;padding:13px 12px;cursor:pointer;text-align:left;transition:.2s}.element-tab:hover{background:#261d17;border-color:#80603a;transform:translateY(-1px)}.element-tab.active{background:linear-gradient(135deg,#302218,#1c1712);border-color:#a27a48;color:#f5e5c9;box-shadow:0 8px 22px rgba(0,0,0,.16)}.element-tab strong{display:block;font-size:14px}.element-tab small{display:block;margin-top:4px;color:#8f8270;line-height:1.35}.detail-copy .detail-intro{color:#ddd1bf;font-size:17px;line-height:1.7;margin:12px 0 24px}.detail-section{padding-top:18px;margin-top:18px;border-top:1px solid #3c2d21}.detail-section h3{margin:0 0 9px;font-size:16px;color:#c69b5f;font-family:Georgia,serif}.detail-section p{margin:7px 0}
+body[data-element-theme="feu"]{--accent:#d47a45;--accent2:#efad6d}.element-detail[data-theme="feu"]{border-color:#70402b}
+body[data-element-theme="eau"]{--accent:#5ea7c5;--accent2:#8ed0e8}.element-detail[data-theme="eau"]{border-color:#315c70}
+body[data-element-theme="terre"]{--accent:#9b8b55;--accent2:#c4b277}.element-detail[data-theme="terre"]{border-color:#655a36}
+body[data-element-theme="air"]{--accent:#a7c9d5;--accent2:#cce8ef}.element-detail[data-theme="air"]{border-color:#536d75}
+
+@media(max-width:850px){.element-grid{grid-template-columns:repeat(2,1fr)}.detail-layout{grid-template-columns:1fr}.detail-art{min-height:160px}}@media(max-width:600px){.element-detail .detail-tabs{grid-template-columns:1fr}}
+
+/* --- Confort de navigation / finition --- */
+.progress-track{position:fixed;z-index:9999;top:0;left:0;right:0;height:3px;background:rgba(20,15,11,.72);pointer-events:none}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#7f542f,#d0a15f,#ead29d);box-shadow:0 0 10px rgba(208,161,95,.38);transition:width .08s linear}
+.archive-search{margin:6px 0 16px;padding:12px;border:1px solid #3e3024;border-radius:11px;background:linear-gradient(145deg,#17120f,#100d0b);box-shadow:inset 0 1px rgba(255,255,255,.025)}
+.archive-search label{display:block;color:#8f7b62;font-size:9px;font-weight:850;letter-spacing:1.7px;text-transform:uppercase;margin:0 2px 8px}
+.search-row{display:flex;gap:7px}.search-input{min-width:0;flex:1;border:1px solid #4c3928;border-radius:8px;background:#0f0c0a;color:#e8dcc9;padding:9px 10px;outline:none;font-size:12px}.search-input::placeholder{color:#6f6253}.search-input:focus{border-color:#9a7044;box-shadow:0 0 0 2px rgba(197,154,90,.08)}.search-btn{width:38px;border:1px solid #5a422c;border-radius:8px;background:#211811;color:#d9b77d;cursor:pointer}.search-btn:hover{background:#2b2018;border-color:#9b7245}.search-results{display:none;margin-top:8px;max-height:180px;overflow:auto}.search-results.open{display:block}.search-result{display:block;width:100%;border:0;background:transparent;color:#bdb09e;text-align:left;padding:7px 8px;border-radius:7px;cursor:pointer;font-size:11.5px}.search-result:hover{background:#211913;color:#ead7b7}.search-result small{display:block;color:#756754;margin-top:2px;font-size:9.5px}.search-empty{color:#756857;font-size:11px;font-style:italic;padding:7px 8px}
+.sidebar-note{margin-top:16px;padding:14px 12px;border:1px dashed #4c3a29;border-radius:10px;color:#8e806f;font-size:11px;line-height:1.6;text-align:center;background:rgba(17,12,9,.42)}.sidebar-note strong{display:block;color:#bd9863;font-family:Georgia,serif;font-size:13px;margin-bottom:3px}
+.top-button{position:fixed;right:22px;bottom:22px;z-index:1000;width:42px;height:42px;border:1px solid #5c442e;border-radius:50%;background:rgba(19,14,11,.94);color:#d6b57b;box-shadow:0 8px 22px rgba(0,0,0,.3);cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:.22s}.top-button.visible{opacity:1;transform:none;pointer-events:auto}.top-button:hover{border-color:#a87b47;background:#261b14}.page-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.meta-chip{padding:6px 9px;border:1px solid #443326;border-radius:999px;background:#17110e;color:#8f806c;font-size:10px}.meta-chip strong{color:#c9a36c}.search-highlight{outline:1px solid #b1814a;box-shadow:0 0 0 3px rgba(177,129,74,.08)}
+@media(max-width:760px){.top-button{right:14px;bottom:14px}.archive-search{margin-top:4px}}
+
+/* Elementalis — curseur de grimoire */
+
+/* Navigation du chapitre Le monde : effet de page de grimoire */
+.world-book{position:relative;min-height:470px;perspective:1800px}
+.world-page{position:relative;backface-visibility:hidden;transform-origin:left center;transition:transform .78s cubic-bezier(.2,.72,.2,1),opacity .35s ease;will-change:transform}
+.world-page.front{z-index:2}
+.world-page.back{display:none;opacity:0;transform:rotateY(-10deg)}
+.world-book.turning .world-page.front{transform:rotateY(-92deg);opacity:.08}
+.world-book.turning .world-page.back{display:block;animation:worldBackIn .78s cubic-bezier(.2,.72,.2,1) forwards}
+@keyframes worldBackIn{from{opacity:0;transform:rotateY(10deg)}to{opacity:1;transform:rotateY(0)}}
+.world-intro-panel{position:relative;overflow:hidden;padding:34px 34px 42px;border:1px solid #58412b;border-radius:15px;background:linear-gradient(135deg,#1b1511,#120f0d);box-shadow:inset 0 0 55px rgba(195,153,92,.035),0 18px 40px rgba(0,0,0,.18)}
+.world-intro-panel:before{content:"";position:absolute;inset:10px;border:1px solid rgba(174,133,77,.16);border-radius:10px;pointer-events:none}
+.world-ornament{color:#b88a50;letter-spacing:9px;text-align:center;font-size:12px;margin-bottom:20px}
+.world-intro-panel h2{font-family:Georgia,serif;color:#e8d2aa;font-size:30px;text-align:center;margin:0 0 15px}
+.world-intro-panel p{max-width:760px;margin:0 auto;color:#bcae9b;line-height:1.85;text-align:center}
+.world-next{position:absolute;right:22px;bottom:18px;display:inline-flex;align-items:center;gap:8px;border:1px solid #6d4d2d;border-radius:999px;background:#211811;color:#d8b57a;padding:8px 12px 8px 15px;font-family:Georgia,serif;cursor:pointer;box-shadow:0 7px 20px rgba(0,0,0,.22);transition:.22s}
+.world-next:hover{transform:translateX(4px);border-color:#b1844c;background:#2a1e16;color:#f0d8ae}
+.world-next .arrow{font-size:20px;line-height:1;transition:transform .22s}.world-next:hover .arrow{transform:translateX(3px)}
+.world-back{position:absolute;right:22px;top:0;border:0;background:transparent;color:#a98a62;padding:6px 0;cursor:pointer;font-family:Georgia,serif}.world-back:hover{color:#e0c99f}
+.world-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+.world-card{min-height:118px;position:relative;overflow:hidden;text-align:left;border:1px solid #493725;border-radius:12px;background:linear-gradient(145deg,#1b1511,#14100d);color:#d9c6a7;padding:16px;cursor:pointer;transition:.24s;box-shadow:0 8px 22px rgba(0,0,0,.12)}
+.world-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(#b78a50,transparent);opacity:.65}.world-card:hover{transform:translateY(-3px);border-color:#8e673e;background:#211913;box-shadow:0 12px 28px rgba(0,0,0,.24)}
+.world-card .world-number{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#9d7950}.world-card strong{display:block;font-family:Georgia,serif;font-size:16px;color:#e6d1ad;margin:9px 0 5px}.world-card small{color:#817362;line-height:1.4}
+.world-page-title{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:7px}.world-page-title h2{font-family:Georgia,serif;color:#e8d2aa;font-size:31px;margin:0}.world-page-title p{margin:0;color:#8f806e;font-size:12px}
+
+/* Curseur Elementalis : plume de scribe, plus éloignée du pointeur système */
+html, body, button, a, input, textarea, select, summary { cursor: url("assets/cursor-quill.svg") 5 2, auto; }
+button:hover, a:hover, .clickable:hover, .element-card:hover, .element-tab:hover, .sub-nav:hover, .search-result:hover, .top-button:hover, .world-next:hover, .world-back:hover, .world-card:hover { cursor: url("assets/cursor-quill-magic.svg") 5 2, pointer; }
+
+button:hover, a:hover, .clickable:hover, .element-card:hover, .element-tab:hover, .sub-nav:hover, .search-result:hover, .top-button:hover { cursor: url("assets/cursor-magic.svg") 4 4, pointer; }
+
+/* Vie ambiante — animations lentes et discrètes */
+.ambient-particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:20;mix-blend-mode:screen}
+.ambient-particle{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(220,180,112,.45);box-shadow:0 0 7px rgba(220,180,112,.32);opacity:0;animation:ambientFloat var(--duration) ease-in-out var(--delay) infinite}
+.ambient-particle.tiny{width:2px;height:2px;box-shadow:0 0 5px rgba(220,180,112,.24);background:rgba(220,180,112,.32)}
+@keyframes ambientFloat{0%,100%{opacity:0;transform:translate3d(0,18px,0) scale(.65)}18%{opacity:.5}50%{opacity:.8;transform:translate3d(var(--drift),-34px,0) scale(1)}82%{opacity:.35}100%{opacity:0;transform:translate3d(calc(var(--drift) * -0.55),-70px,0) scale(.55)}}
+.home-banner:before{content:"";position:absolute;width:42%;height:140%;left:-12%;top:-20%;background:radial-gradient(ellipse,rgba(214,166,91,.09),transparent 68%);filter:blur(8px);animation:slowGlow 13s ease-in-out infinite alternate;pointer-events:none}
+@keyframes slowGlow{from{transform:translateX(0) scale(.9);opacity:.45}to{transform:translateX(210%) scale(1.12);opacity:.85}}
+.section:after{content:"";position:absolute;top:0;left:-35%;width:28%;height:100%;background:linear-gradient(100deg,transparent,rgba(235,202,145,.045),transparent);transform:skewX(-18deg);animation:sectionShimmer 16s ease-in-out infinite;pointer-events:none}
+@keyframes sectionShimmer{0%,58%{left:-35%;opacity:0}65%{opacity:1}86%,100%{left:125%;opacity:0}}
+.orb{animation:orbBreath 7s ease-in-out infinite;will-change:transform}
+.element-card:nth-child(2) .orb{animation-delay:-1.7s}.element-card:nth-child(3) .orb{animation-delay:-3.4s}.element-card:nth-child(4) .orb{animation-delay:-5.1s}
+@keyframes orbBreath{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.025)}}
+.world-ornament{animation:ornamentPulse 8s ease-in-out infinite}
+@keyframes ornamentPulse{0%,100%{opacity:.62;letter-spacing:9px}50%{opacity:.92;letter-spacing:11px}}
+.world-next .arrow{animation:arrowNudge 3.8s ease-in-out infinite}
+@keyframes arrowNudge{0%,70%,100%{transform:translateX(0)}82%{transform:translateX(5px)}90%{transform:translateX(1px)}}
+.badge{animation:badgeGlow 6s ease-in-out infinite}
+@keyframes badgeGlow{0%,100%{box-shadow:0 0 0 rgba(197,154,90,0)}50%{box-shadow:0 0 22px rgba(197,154,90,.07)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+
+
+/* ===== v26 — détails d'ambiance / archives vivantes ===== */
+.home-banner, .home-card, .section, .world-intro-panel, .world-card { position: relative; overflow: hidden; }
+.home-banner::after, .home-card::after, .section::after, .world-intro-panel::after, .world-card::after {
+  content:""; position:absolute; top:-120%; left:-35%; width:24%; height:340%;
+  background:linear-gradient(90deg, transparent, rgba(221,183,116,.08), transparent);
+  transform:rotate(14deg); pointer-events:none; opacity:0;
+}
+.home-banner:hover::after, .home-card:hover::after, .section:hover::after, .world-intro-panel:hover::after, .world-card:hover::after {
+  opacity:1; animation:archiveSheen 2.4s ease-out forwards;
+}
+@keyframes archiveSheen { from { left:-35%; } to { left:125%; } }
+.chapter-kicker { position:relative; display:inline-flex; align-items:center; gap:10px; }
+.chapter-kicker::before, .chapter-kicker::after { content:""; width:22px; height:1px; background:linear-gradient(90deg, transparent, rgba(197,154,90,.65)); }
+.chapter-kicker::after { background:linear-gradient(90deg, rgba(197,154,90,.65), transparent); }
+.home-banner h2 { text-shadow:0 0 24px rgba(197,154,90,.10); }
+.home-card h3 { transition:transform .35s ease, letter-spacing .35s ease; }
+.home-card:hover h3 { transform:translateX(3px); letter-spacing:.2px; }
+.world-card { transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
+.world-card:hover { transform:translateY(-4px); box-shadow:0 12px 28px rgba(0,0,0,.22), 0 0 18px rgba(197,154,90,.05); }
+.sidebar-note { position:relative; }
+.sidebar-note::before { content:"✦"; position:absolute; right:12px; top:10px; color:rgba(197,154,90,.55); animation:softTwinkle 4s ease-in-out infinite; }
+@keyframes softTwinkle { 0%,100%{opacity:.25;transform:scale(.9) rotate(0deg)} 50%{opacity:.8;transform:scale(1.05) rotate(18deg)} }
+.editor-window { box-shadow:0 30px 100px rgba(0,0,0,.65), 0 0 35px rgba(197,154,90,.04); }
+@media (prefers-reduced-motion: reduce){ .home-banner:hover::after,.home-card:hover::after,.section:hover::after,.world-intro-panel:hover::after,.world-card:hover::after,.sidebar-note::before { animation:none !important; } }
+
+</style>
+</head>
+<body>
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
+<div class="ambient-particles" id="ambient-particles" aria-hidden="true"></div>
+<div class="layout">
+<aside>
+  <div class="logo">ELEMENTALIS<small>Wiki — Univers & pouvoirs</small></div>
+  <button class="home-nav active" type="button" data-target="accueil" aria-label="Retour à la page d’accueil">
+    <span class="nav-home-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 10.8 12 3.7l8.5 7.1"/><path d="M5.5 9.5v10.2h13V9.5"/><path d="M9.5 19.7v-5.8h5v5.8"/></svg></span>Accueil
+  </button>
+  <div class="archive-search">
+    <label for="archive-search-input">Rechercher dans les archives</label>
+    <div class="search-row">
+      <input id="archive-search-input" class="search-input" type="search" placeholder="Ex. Feu, Histoire…" autocomplete="off" aria-label="Rechercher dans les archives">
+      <button class="search-btn" id="archive-search-btn" type="button" aria-label="Lancer la recherche">⌕</button>
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+  <div class="nav-title">Chapitres</div>
+  <button class="nav-item" data-target="monde"><span>🌌</span>Le monde</button>
+  <button class="nav-item" data-target="hierarchie"><span>⚖️</span>Hiérarchie</button>
+  <button class="nav-item" data-target="elements"><span>✨</span>Les éléments</button>
+  <button class="nav-item history-toggle" type="button" aria-expanded="false"><span>📜</span><span style="flex:1">Histoire</span><span class="chevron">▾</span></button>
+  <div class="subnav" id="history-subnav">
+    <button class="sub-nav" data-target="legendes">Légendes et apparition des dieux</button>
+    <button class="sub-nav" data-target="guerres">Premières Guerres élémentaires</button>
+    <button class="sub-nav" data-target="desastre">Le Grand Désastre</button>
+    <button class="sub-nav" data-target="renaissance">Renaissance d’un monde</button>
+  </div>
+  <button class="nav-item" data-target="personnages"><span>♙</span>Personnages</button>
+  <button class="nav-item" data-target="objets"><span>◇</span>Objets mystiques</button>
+  <button class="nav-item" data-target="bestiaire"><span>♞</span>Bestiaire</button>
+  <div class="sidebar-note"><strong>Note de l’archiviste</strong>Les archives évoluent encore. Certaines pages sont volontairement laissées vierges jusqu’à la découverte de nouveaux secrets.</div>
+</aside>
+<main>
+  <article class="home-screen" id="accueil">
+    <div class="home-banner">
+      <span class="badge">WIKI PERSONNEL</span>
+      <h2>Elementalis</h2>
+      <p>Bienvenue dans les archives d’Elementalis. Explore les règles de ce monde, sa hiérarchie et les pouvoirs qui façonnent ses habitants.</p>
+    </div>
+    <div class="home-grid">
+      <div class="home-card"><h3>🌌 Un univers à découvrir</h3><p>Chaque chapitre dévoile un morceau de l’univers : ses mondes, ses personnages puissants et ses mystères.</p></div>
+      <div class="home-card"><h3>⚡ Des pouvoirs variés</h3><p>Quatre éléments principaux servent de base à des évolutions, des formes ultimes et des pouvoirs secondaires.</p></div>
+      <div class="home-card"><h3>📚 Des archives vivantes</h3><p>Cette wiki est pensée pour s’enrichir au fil du temps. Même les pouvoirs les plus simples ont leur petite fiche.</p></div>
+    </div>
+    <div class="home-grid" style="margin-top:14px;grid-template-columns:repeat(4,1fr)">
+      <div class="home-card"><h3>04</h3><p>éléments principaux</p></div>
+      <div class="home-card"><h3>06</h3><p>forces secondaires</p></div>
+      <div class="home-card"><h3>03</h3><p>étapes de maîtrise</p></div>
+      <div class="home-card"><h3>∞</h3><p>possibilités à découvrir</p></div>
+    </div>
+    <div class="home-note">💡 <strong>Conseil :</strong> commence par <strong>Les éléments</strong> si tu veux voir les pouvoirs, leurs évolutions et leurs formes ultimes.</div>
+    <div class="page-meta"><span class="meta-chip"><strong>Archives :</strong> en construction</span><span class="meta-chip"><strong>Dernière édition :</strong> 17 août 2026</span><span class="meta-chip"><strong>Statut :</strong> monde en expansion</span></div>
+  </article>
+
+  
+    <article class="chapter" id="monde" style="display:block">
+      <div class="chapter-kicker">🌌 CHAPITRE</div>
+      <h1>Le monde</h1>
+      <p class="intro">Une présentation de la structure cosmique d’Elementalis et de son univers.</p>
+      <div class="world-book" id="world-book">
+        <section class="world-page front" id="world-page-front">
+          <div class="world-intro-panel">
+            <div class="world-ornament">✦ ───── ✧ ───── ✦</div>
+            <h2>Les univers connus</h2>
+            <p>Il existe de nombreux univers. Chaque univers constitue un monde à part entière, comparable à une planète.<br><br>L’Univers d’Elementalis est l’univers le plus proche de l’univers humain, celui que nous connaissons. À ce jour, aucun autre univers que celui d’Elementalis n’est connu.</p>
+            <button class="world-next" id="world-next" type="button" aria-label="Tourner la page et découvrir les univers"><span>Tourner la page</span><span class="arrow">→</span></button>
+          </div>
+        </section>
+        <section class="world-page back" id="world-page-back" aria-hidden="true">
+          <button class="world-back" id="world-back" type="button">← Revenir à la page précédente</button>
+          <div class="world-page-title">
+            <div><div class="chapter-kicker">ARCHIVES COSMIQUES</div><h2>Les seize premières archives</h2></div>
+            <p>Les pages restent à compléter.</p>
+          </div>
+          <div class="world-grid">
+            <button class="world-card" type="button" aria-label="Univers 1"><span class="world-number">Univers 01</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 2"><span class="world-number">Univers 02</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 3"><span class="world-number">Univers 03</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 4"><span class="world-number">Univers 04</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 5"><span class="world-number">Univers 05</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 6"><span class="world-number">Univers 06</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 7"><span class="world-number">Univers 07</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 8"><span class="world-number">Univers 08</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 9"><span class="world-number">Univers 09</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 10"><span class="world-number">Univers 10</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 11"><span class="world-number">Univers 11</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 12"><span class="world-number">Univers 12</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 13"><span class="world-number">Univers 13</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 14"><span class="world-number">Univers 14</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 15"><span class="world-number">Univers 15</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button><button class="world-card" type="button" aria-label="Univers 16"><span class="world-number">Univers 16</span><strong>Archive scellée</strong><small>Les informations sur cet univers seront ajoutées plus tard.</small></button>
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <article class="chapter" id="hierarchie" style="display:none">
+      <div class="chapter-kicker">⚖️ CHAPITRE</div>
+      <h1>Hiérarchie</h1>
+      <p class="intro">La société d’Elementalis repose sur une hiérarchie présentée comme simple et stable.</p>
+      <section class="section"><h2>La hiérarchie d’Elementalis</h2><p>Au sommet se trouvent les gardiens de l’équilibre, les frères jumeaux Ying et Yang.</p><p>Viennent ensuite les Dieux, dont le nombre est important.</p><p>Après eux se trouvent les élémentaires : à chaque génération, un maître de chaque élément est choisi et nommé par les dieux. Ce sont les maîtres les plus puissants de l’univers.</p><p>Enfin viennent les maîtres élémentaires, puis les humains ordinaires.</p></section><section class="section"><h2>Les royaumes humains</h2><p>Les humains ont créé des royaumes dirigés par des rois. Ceux-ci se considèrent comme situés entre les élémentaires et les dieux dans la hiérarchie.</p><p>Les dieux, eux, considèrent les rois comme de simples humains.</p></section><section class="section"><h2>Les Oracles</h2><p>Il existerait des êtres appelés Oracles, qui seraient des dieux.</p><p>Selon certaines croyances, les Oracles seraient des dieux que les gardiens de l’équilibre auraient ratés. Selon d’autres, ils auraient été cachés.</p><p>Ceux qui pensent que les Oracles sont cachés estiment qu’ils seraient plus puissants que les dieux.</p></section>
+    </article>
+
+    
+    <article class="chapter" id="elements" style="display:none">
+      <div class="chapter-kicker">✨ CHAPITRE</div>
+      <h1>Les éléments</h1>
+      <p class="intro">Les pouvoirs élémentaires sont répartis en plusieurs catégories. Certains éléments possèdent des évolutions et des formes ultimes, tandis que d’autres sont considérés comme secondaires ou tertiaires.</p>
+
+      <section class="section">
+        <h2>Catégories d’éléments</h2>
+        <p>On distingue l’élément principal, son évolution, sa forme ultime et les éléments secondaires. La forme ultime d’un élément principal ne peut être maîtrisée que par les élémentaires.</p>
+        <p>Le nombre d’éléments secondaires qu’un maître ou un élémentaire peut maîtriser varie.</p>
+      </section>
+
+      <section class="section">
+        <h2>Éléments principaux</h2>
+        <div class="element-grid">
+          <button class="element-card" data-element="feu" style="--card-accent:#d47a45"><span class="orb fire"><img src="assets/fire.png" alt="Feu"></span><strong>Feu</strong><small>Électricité → Dragon de feu</small></button>
+          <button class="element-card" data-element="eau" style="--card-accent:#5ea7c5"><span class="orb water"><img src="assets/water.png" alt="Eau"></span><strong>Eau</strong><small>Nature → Maîtrise du sang</small></button>
+          <button class="element-card" data-element="terre" style="--card-accent:#9b8b55"><span class="orb earth"><img src="assets/earth.png" alt="Terre"></span><strong>Terre</strong><small>Métal → Magie</small></button>
+          <button class="element-card" data-element="air" style="--card-accent:#a7c9d5"><span class="orb air"><img src="assets/air.png" alt="Air"></span><strong>Air</strong><small>Tempêtes → Maîtrise de la faune</small></button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Éléments secondaires connus</h2>
+        <div class="pills">
+          <button class="pill clickable" data-element="vitesse">Vitesse</button>
+          <button class="pill clickable" data-element="invisibilite">Invisibilité</button>
+          <button class="pill clickable" data-element="temps">Temps</button>
+          <button class="pill clickable" data-element="forme">Forme</button>
+          <button class="pill clickable" data-element="ombre">Ombre</button>
+          <button class="pill clickable" data-element="lumiere">Lumière</button>
+        </div>
+      </section>
+
+      <section class="section element-detail" id="element-detail">
+        <div class="detail-placeholder">
+          <span>✦</span>
+          <h2>Choisis un élément</h2>
+          <p>Clique sur un élément pour afficher sa fiche détaillée. Les éléments principaux ouvrent trois chapitres : élément, évolution et forme ultime.</p>
+        </div>
+      </section>
+    </article>
+
+
+    <article class="chapter" id="legendes" style="display:none">
+      <div class="chapter-kicker">📜 HISTOIRE</div><h1>Légendes et apparition des dieux</h1>
+      <section class="section empty-chapter"><div class="empty-chapter-inner"><div class="empty-chapter-mark">✦</div><h2>Les archives restent silencieuses…</h2><p>« Les premiers récits ont été perdus dans la brume des âges. Peut-être qu’un jour, quelqu’un retrouvera les pages capables de raconter comment les dieux sont apparus. »</p></div></section>
+    </article>
+    <article class="chapter" id="guerres" style="display:none">
+      <div class="chapter-kicker">⚔️ HISTOIRE</div><h1>Premières Guerres élémentaires</h1>
+      <section class="section empty-chapter"><div class="empty-chapter-inner"><div class="empty-chapter-mark">⚔</div><h2>Chroniques incomplètes</h2><p>« Les chroniques parlent de flammes, de tempêtes et de royaumes disparus. Mais pour l’instant, les pages consacrées aux premières guerres élémentaires sont encore vierges. »</p></div></section>
+    </article>
+    <article class="chapter" id="desastre" style="display:none">
+      <div class="chapter-kicker">🌑 HISTOIRE</div><h1>Le Grand Désastre</h1>
+      <section class="section empty-chapter"><div class="empty-chapter-inner"><div class="empty-chapter-mark">☽</div><h2>Un événement dont on ne sait presque rien</h2><p>« Certains murmurent que les montagnes s’en souviennent encore. Les archives, elles, ne gardent pour l’instant que quelques pages brûlées. »</p></div></section>
+    </article>
+    <article class="chapter" id="renaissance" style="display:none">
+      <div class="chapter-kicker">🌅 HISTOIRE</div><h1>Renaissance d’un monde</h1>
+      <section class="section empty-chapter"><div class="empty-chapter-inner"><div class="empty-chapter-mark">✧</div><h2>Le chapitre reste à écrire</h2><p>« Après les ruines vient toujours un nouveau commencement. Reste à savoir qui écrira le récit de cette renaissance. »</p></div></section>
+    </article>
+    <article class="chapter" id="personnages" style="display:none">
+      <div class="chapter-kicker">♙ ARCHIVES</div><h1>Personnages</h1>
+      <section class="section empty-chapter"><div class="empty-chapter-inner"><div class="empty-chapter-mark">♙</div><h2>Aucun portrait dans les archives</h2><p>« Les noms importants sont encore murmurés à voix basse. Cette section attend le jour où les personnages d’Elementalis auront enfin leur place dans les archives. »</p></div></section>
+    </article>
+    <article class="chapter" id="objets" style="display:none">
+      <div class="chapter-kicker">◇ RELIQUES</div><h1>Objets mystiques</h1>
+      <section class="section empty-chapter"><div class="empty-chapter-inner"><div class="empty-chapter-mark">◇</div><h2>Les reliques n’ont pas encore été cataloguées</h2><p>« On raconte que certains objets possèdent une volonté propre. Pour le moment, aucun conservateur n’a osé ouvrir les coffres concernés. »</p></div></section>
+    </article>
+    <article class="chapter" id="bestiaire" style="display:none">
+      <div class="chapter-kicker">♞ CRÉATURES</div><h1>Bestiaire</h1>
+      <section class="section empty-chapter"><div class="empty-chapter-inner"><div class="empty-chapter-mark">♞</div><h2>Le bestiaire est encore vide</h2><p>« Des traces étranges ont été aperçues dans plusieurs régions. Tant qu’aucun témoin ne revient avec une histoire crédible, les créatures restent dans l’ombre. »</p></div></section>
+    </article>
+<button class="top-button" id="top-button" type="button" aria-label="Retour en haut">↑</button>
+<div class="footer">Archives personnelles d’Elementalis · Édition 2026</div>
+</main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+let buttons = document.querySelectorAll('.nav-item[data-target], .home-nav[data-target], .sub-nav[data-target]');
+let chapters = document.querySelectorAll('.chapter');
+let home = document.getElementById('accueil');
+function show(id) {
+  home.style.display = id === 'accueil' ? 'block' : 'none';
+  chapters.forEach(c => c.style.display = c.id === id ? 'block' : 'none');
+  buttons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+  const historyIds = ['legendes','guerres','desastre','renaissance'];
+  if (historyIds.includes(id)) {
+    historyToggle.classList.add('open','active');
+    historySubnav.classList.add('open');
+    historyToggle.setAttribute('aria-expanded','true');
+  }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+buttons.forEach(b => b.addEventListener('click', (event) => {
+  event.preventDefault();
+  const target = b.dataset.target;
+  if (target) show(target);
+}));
+
+const historyToggle = document.querySelector('.history-toggle');
+const historySubnav = document.getElementById('history-subnav');
+historyToggle.addEventListener('click', () => {
+  const open = historySubnav.classList.toggle('open');
+  historyToggle.classList.toggle('open', open);
+  historyToggle.setAttribute('aria-expanded', String(open));
+});
+
+
+let worldBook = document.getElementById('world-book');
+let worldNext = document.getElementById('world-next');
+let worldBack = document.getElementById('world-back');
+let worldBackPage = document.getElementById('world-page-back');
+function turnWorldPage(){
+  worldBook.classList.add('turning');
+  worldBackPage.setAttribute('aria-hidden','false');
+  setTimeout(()=>{ worldBook.querySelector('.world-page.front').style.display='none'; worldBackPage.style.display='block'; }, 360);
+}
+function returnWorldPage(){
+  worldBook.querySelector('.world-page.front').style.display='block';
+  worldBackPage.style.display='none';
+  worldBook.classList.remove('turning');
+  worldBackPage.setAttribute('aria-hidden','true');
+}
+worldNext.addEventListener('click',turnWorldPage);
+worldBack.addEventListener('click',returnWorldPage);
+
+show('accueil');
+
+
+// Particules d'ambiance : quelques poussières lumineuses dérivent lentement dans les archives.
+const ambientLayer = document.getElementById('ambient-particles');
+if (ambientLayer) {
+  for (let i = 0; i < 16; i++) {
+    const mote = document.createElement('span');
+    mote.className = 'ambient-particle' + (i % 3 === 0 ? ' tiny' : '');
+    mote.style.left = (5 + Math.random() * 90) + '%';
+    mote.style.top = (18 + Math.random() * 72) + '%';
+    mote.style.setProperty('--duration', (11 + Math.random() * 11).toFixed(1) + 's');
+    mote.style.setProperty('--delay', (-Math.random() * 18).toFixed(1) + 's');
+    mote.style.setProperty('--drift', ((Math.random() * 70) - 35).toFixed(0) + 'px');
+    ambientLayer.appendChild(mote);
+  }
+}
+
+const elementData = {
+  feu: {
+    title:"Feu", tag:"Élément principal", symbol:"assets/fire.png",
+    intro:"Le Feu est l’un des quatre éléments principaux connus d’Elementalis.",
+    discovery:"Les éléments principaux constituent la base du système élémentaire présenté dans les premières connaissances sur Elementalis.",
+    effect:"Le Feu permet de manipuler et de produire le feu.",
+    evolution:"Électricité",
+    ultimate:"Dragon de feu"
+  },
+  eau: {
+    title:"Eau", tag:"Élément principal", symbol:"assets/water.png",
+    intro:"L’Eau est l’un des quatre éléments principaux connus d’Elementalis.",
+    discovery:"Les éléments principaux constituent la base du système élémentaire présenté dans les premières connaissances sur Elementalis.",
+    effect:"L’Eau permet de manipuler l’eau.",
+    evolution:"Nature",
+    ultimate:"Maîtrise du sang",
+    ultimateEffect:"Lors des pleines lunes, cette forme permet de contrôler les êtres vivants."
+  },
+  terre: {
+    title:"Terre", tag:"Élément principal", symbol:"assets/earth.png",
+    intro:"La Terre est l’un des quatre éléments principaux connus d’Elementalis.",
+    discovery:"Les éléments principaux constituent la base du système élémentaire présenté dans les premières connaissances sur Elementalis.",
+    effect:"La Terre permet de manipuler la terre et les matières qui lui sont associées.",
+    evolution:"Métal",
+    ultimate:"Magie",
+    ultimateEffect:"La forme ultime permet de créer des objets solides."
+  },
+  air: {
+    title:"Air", tag:"Élément principal", symbol:"assets/air.png",
+    intro:"L’Air est l’un des quatre éléments principaux connus d’Elementalis.",
+    discovery:"Les éléments principaux constituent la base du système élémentaire présenté dans les premières connaissances sur Elementalis.",
+    effect:"L’Air permet de manipuler les courants d’air.",
+    evolution:"Tempêtes",
+    ultimate:"Maîtrise de la faune",
+    ultimateEffect:"La forme ultime permet de contrôler les animaux."
+  },
+
+  vitesse:{
+    title:"Vitesse",tag:"Élément secondaire",symbol:"assets/speed.png",
+    intro:"La Vitesse fait partie des éléments secondaires découverts à ce jour.",
+    discovery:"Ce pouvoir a été identifié comme une capacité simple et directe, souvent utilisée pour des actions rapides et pratiques.",
+    effect:"Permet d’augmenter considérablement la vitesse de déplacement de son utilisateur."
+  },
+  invisibilite:{
+    title:"Invisibilité",tag:"Élément secondaire",symbol:"assets/invisibility.png",
+    intro:"L’Invisibilité fait partie des éléments secondaires découverts à ce jour.",
+    discovery:"Ce pouvoir a été identifié comme une capacité simple et directe, souvent utilisée pour des actions rapides et pratiques.",
+    effect:"Permet à son utilisateur de devenir invisible."
+  },
+  temps:{
+    title:"Temps",tag:"Élément secondaire",symbol:"assets/time.png",
+    intro:"Le Temps fait partie des éléments secondaires découverts à ce jour.",
+    discovery:"Ce pouvoir a été identifié comme une capacité simple et directe, souvent utilisée pour des actions rapides et pratiques.",
+    effect:"Permet de ralentir, accélérer ou interrompre brièvement l’écoulement du temps autour de son utilisateur."
+  },
+  forme:{
+    title:"Forme",tag:"Élément secondaire",symbol:"assets/form.png",
+    intro:"La Forme fait partie des éléments secondaires découverts à ce jour.",
+    discovery:"La Forme est répertoriée parmi les éléments secondaires connus.",
+    effect:"Permet à son utilisateur de changer d’aspect."
+  },
+  ombre:{
+    title:"Ombre",tag:"Élément tertiaire — majeur",symbol:"assets/shadow.png",
+    intro:"L’Ombre est l’un des deux plus puissants éléments tertiaires connus.",
+    discovery:"L’Ombre est classée parmi les éléments secondaires connus dans les premières archives, mais ses capacités la placent parmi les éléments tertiaires les plus puissants.",
+    effect:"L’Ombre permet de détruire."
+  },
+  lumiere:{
+    title:"Lumière",tag:"Élément tertiaire — majeur",symbol:"assets/light.png",
+    intro:"La Lumière est l’un des deux plus puissants éléments tertiaires connus.",
+    discovery:"La Lumière est classée parmi les éléments secondaires connus dans les premières archives, mais ses capacités la placent parmi les éléments tertiaires les plus puissants.",
+    effect:"La Lumière permet de créer."
+  }
+};
+
+const primaryStages = {
+  feu:[
+    {key:"feu", label:"Feu", sub:"Élément principal"},
+    {key:"feu-evolution", label:"Électricité", sub:"Évolution"},
+    {key:"feu-ultime", label:"Dragon de feu", sub:"Forme ultime"}
+  ],
+  eau:[
+    {key:"eau", label:"Eau", sub:"Élément principal"},
+    {key:"eau-evolution", label:"Nature", sub:"Évolution"},
+    {key:"eau-ultime", label:"Maîtrise du sang", sub:"Forme ultime"}
+  ],
+  terre:[
+    {key:"terre", label:"Terre", sub:"Élément principal"},
+    {key:"terre-evolution", label:"Métal", sub:"Évolution"},
+    {key:"terre-ultime", label:"Magie", sub:"Forme ultime"}
+  ],
+  air:[
+    {key:"air", label:"Air", sub:"Élément principal"},
+    {key:"air-evolution", label:"Tempêtes", sub:"Évolution"},
+    {key:"air-ultime", label:"Maîtrise de la faune", sub:"Forme ultime"}
+  ]
+};
+
+const detail = document.getElementById('element-detail');
+let currentPrimary = null;
+
+function stageData(primaryKey, stageIndex) {
+  const e = elementData[primaryKey];
+  const stage = primaryStages[primaryKey][stageIndex];
+
+  if (stageIndex === 0) {
+    return {
+      ...e,
+      title: stage.label,
+      tag: "Élément principal",
+      symbol: e.symbol,
+      intro: e.intro,
+      discovery: e.discovery,
+      effect: e.effect
+    };
+  }
+
+  if (stageIndex === 1) {
+    return {
+      title: stage.label,
+      tag: "Évolution",
+      symbol: stage.label === "Électricité" ? "assets/lightning.png" : stage.label === "Nature" ? "assets/nature.png" : stage.label === "Métal" ? "assets/metal.png" : "assets/storm.png",
+      intro: `${stage.label} est l’évolution du ${e.title.toLowerCase()}.`,
+      discovery: "Cette évolution est répertoriée dans les connaissances actuelles comme la seconde étape de la progression de cet élément.",
+      effect: "Permet de développer la branche évoluée de ce pouvoir et d’en utiliser les propriétés spécifiques."
+    };
+  }
+
+  return {
+    title: stage.label,
+    tag: "Forme ultime",
+    symbol: stage.label === "Dragon de feu" ? "assets/dragon.png" : stage.label === "Maîtrise du sang" ? "assets/blood.png" : stage.label === "Magie" ? "assets/magic.png" : "assets/fauna.png",
+    intro: `${stage.label} est la forme ultime associée à l’élément ${e.title.toLowerCase()}.`,
+    discovery: "Cette forme ultime apparaît après une maîtrise exceptionnelle de l’évolution et ne peut être maîtrisée que par les élémentaires.",
+    effect: e.ultimateEffect || "Cette forme représente l’aboutissement de la progression de cet élément et concentre ses capacités les plus puissantes."
+  };
+}
+
+function renderFicha(e, tabsHTML="") {
+  detail.innerHTML = `
+    ${tabsHTML}
+    <div class="detail-layout">
+      <div class="detail-art"><img src="${e.symbol}" alt="Illustration de ${e.title}"></div>
+      <div class="detail-copy">
+        <span class="detail-tag">${e.tag}</span>
+        <h2>${e.title}</h2>
+        <p class="detail-intro">${e.intro}</p>
+
+        <div class="detail-section">
+          <h3>Découverte du pouvoir</h3>
+          <p>${e.discovery}</p>
+        </div>
+
+        <div class="detail-section">
+          <h3>Ce que fait le pouvoir</h3>
+          <p>${e.effect}</p>
+        </div>
+      </div>
+    </div>`;
+}
+
+function showPrimaryStage(primaryKey, stageIndex) {
+  const stages = primaryStages[primaryKey];
+  const tabsHTML = `<div class="detail-tabs" role="tablist">
+    ${stages.map((st,i)=>`<button class="element-tab ${i===stageIndex?'active':''}" data-stage="${i}">
+      <strong>${st.label}</strong><small>${st.sub}</small>
+    </button>`).join("")}
+  </div>`;
+  renderFicha(stageData(primaryKey, stageIndex), tabsHTML);
+  detail.querySelectorAll(".element-tab").forEach(btn => {
+    btn.addEventListener("click", () => showPrimaryStage(primaryKey, Number(btn.dataset.stage)));
+  });
+}
+
+function showElement(key) {
+  document.body.dataset.elementTheme = key || "";
+  if (primaryStages[key]) {
+    currentPrimary = key;
+    showPrimaryStage(key, 0);
+  } else {
+    currentPrimary = null;
+    renderFicha(elementData[key]);
+  }
+  detail.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+document.querySelectorAll('[data-element]').forEach(el => {
+  el.addEventListener('click', () => showElement(el.dataset.element));
+});
+
+
+// Recherche rapide dans les archives.
+const searchInput = document.getElementById('archive-search-input');
+const searchBtn = document.getElementById('archive-search-btn');
+const searchResults = document.getElementById('search-results');
+const chapterLabels = [
+  ['accueil','Accueil','Page d’accueil'],['monde','Le monde','Chapitre'],['hierarchie','Hiérarchie','Chapitre'],
+  ['elements','Les éléments','Chapitre'],['legendes','Légendes et apparition des dieux','Histoire'],
+  ['guerres','Premières Guerres élémentaires','Histoire'],['desastre','Le Grand Désastre','Histoire'],
+  ['renaissance','Renaissance d’un monde','Histoire'],['personnages','Personnages','Archives'],
+  ['objets','Objets mystiques','Reliques'],['bestiaire','Bestiaire','Créatures']
+];
+function runSearch(){
+  const q = searchInput.value.trim().toLocaleLowerCase('fr');
+  searchResults.innerHTML='';
+  if(!q){ searchResults.classList.remove('open'); return; }
+  const results=[];
+  chapterLabels.forEach(([id,label,type])=>{ if(label.toLocaleLowerCase('fr').includes(q)) results.push({kind:'chapter',id,label,type}); });
+  Object.values(elementData).forEach(e=>{ if(e.title.toLocaleLowerCase('fr').includes(q)) results.push({kind:'element',id:e.title,label:e.title,type:e.tag}); });
+  const seen=new Set();
+  const unique=results.filter(r=>{const k=r.kind+':'+r.label;if(seen.has(k))return false;seen.add(k);return true}).slice(0,8);
+  if(!unique.length){ searchResults.innerHTML='<div class="search-empty">Aucune archive ne correspond à cette recherche.</div>'; searchResults.classList.add('open'); return; }
+  unique.forEach(r=>{
+    const b=document.createElement('button'); b.className='search-result'; b.type='button';
+    b.innerHTML=`${r.label}<small>${r.type}</small>`;
+    b.addEventListener('click',()=>{
+      if(r.kind==='chapter') show(r.id);
+      else { show('elements'); setTimeout(()=>showElement(Object.keys(elementData).find(k=>elementData[k].title===r.label)),0); }
+      searchResults.classList.remove('open'); searchInput.value='';
+    });
+    searchResults.appendChild(b);
+  });
+  searchResults.classList.add('open');
+}
+searchInput.addEventListener('input',runSearch);
+searchInput.addEventListener('keydown',e=>{
+  if(e.key==='Enter') { e.preventDefault(); const first=searchResults.querySelector('.search-result'); if(first) first.click(); }
+  if(e.key==='Escape'){ searchInput.value=''; searchResults.classList.remove('open'); searchInput.blur(); }
+});
+searchBtn.addEventListener('click',()=>{ const first=searchResults.querySelector('.search-result'); if(first) first.click(); else runSearch(); });
+document.addEventListener('click',e=>{ if(!e.target.closest('.archive-search')) searchResults.classList.remove('open'); });
+document.addEventListener('keydown',e=>{ if(e.key==='/' && document.activeElement!==searchInput && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){ e.preventDefault(); searchInput.focus(); } });
+
+// Barre de progression de lecture + retour en haut.
+const progressBar=document.getElementById('progress-bar');
+const topButton=document.getElementById('top-button');
+function updateScrollUI(){
+  const doc=document.documentElement;
+  const max=doc.scrollHeight-window.innerHeight;
+  const pct=max>0 ? Math.min(100,(window.scrollY/max)*100) : 0;
+  progressBar.style.width=pct+'%';
+  topButton.classList.toggle('visible',window.scrollY>420);
+}
+window.addEventListener('scroll',updateScrollUI,{passive:true});
+window.addEventListener('resize',updateScrollUI);
+topButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+updateScrollUI();
+
+
+
+/* ===== Atelier de l’archiviste : édition locale ===== */
+document.addEventListener('DOMContentLoaded',()=>{
+  const KEY='elementalis-editor-v1';
+  const PASS='elementalis-pass-v1';
+  const modal=document.getElementById('editor-modal'), entry=document.getElementById('edit-entry');
+  const login=document.getElementById('editor-login'), app=document.getElementById('editor-app');
+  const passwordInput=document.getElementById('editor-password'), loginStatus=document.getElementById('editor-login-status');
+  let backup=null, editing=false;
+  const customIds=()=>JSON.parse(localStorage.getItem(KEY)||'null')?.customChapters||[];
+  const sha=async str=>{if(window.crypto?.subtle){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return ('00000000'+(h>>>0).toString(16)).slice(-8)};
+  async function getPassHash(){return localStorage.getItem(PASS)||await sha('elementalis')}
+  function openModal(){modal.classList.add('open');modal.setAttribute('aria-hidden','false');login.style.display='block';app.style.display='none';passwordInput.value='';passwordInput.focus()}
+  function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');if(editing) stopEditing(true)}
+  entry.addEventListener('click',openModal); document.getElementById('editor-close').addEventListener('click',closeModal);
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+  passwordInput.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('editor-login-btn').click()});
+  document.getElementById('editor-login-btn').addEventListener('click',async()=>{if(await sha(passwordInput.value)==await getPassHash()){login.style.display='none';app.style.display='block';startEditing();refreshEditorLists()}else loginStatus.textContent='Mot de passe incorrect.'});
+  function editableElements(){return [...document.querySelectorAll('#accueil h2,#accueil p,#accueil h3,#accueil .home-note,.chapter h1,.chapter .intro,.chapter .section h2,.chapter .section p,.world-page-title h2,.world-page-title p,.world-card strong,.world-card small')].filter(el=>!el.closest('#editor-modal'))}
+  function startEditing(){editing=true;document.body.classList.add('editing');backup=editableElements().map((el,i)=>({i,html:el.innerHTML}));editableElements().forEach(el=>el.contentEditable='true');document.getElementById('editor-content-status').textContent='Mode édition actif : clique directement sur les textes.';}
+  function stopEditing(restore){if(!editing)return; const els=editableElements(); if(restore&&backup)backup.forEach(x=>{if(els[x.i])els[x.i].innerHTML=x.html}); els.forEach(el=>el.contentEditable='false');document.body.classList.remove('editing');editing=false;backup=null;}
+  function serialize(){
+    const data={version:1, savedAt:new Date().toISOString(), main:document.querySelector('main').innerHTML, customChapters:customIds()};
+    return data;
+  }
+  function save(){localStorage.setItem(KEY,JSON.stringify(serialize())); backup=editableElements().map((el,i)=>({i,html:el.innerHTML}));document.getElementById('editor-content-status').textContent='Modifications enregistrées sur cet appareil.';}
+  function restoreSaved(){const raw=localStorage.getItem(KEY); if(!raw)return; try{const d=JSON.parse(raw); if(d.main){document.querySelector('main').innerHTML=d.main; buttons=document.querySelectorAll('.nav-item[data-target], .home-nav[data-target], .sub-nav[data-target]'); chapters=document.querySelectorAll('.chapter'); home=document.getElementById('accueil'); worldBook=document.getElementById('world-book'); worldNext=document.getElementById('world-next'); worldBack=document.getElementById('world-back'); worldBackPage=document.getElementById('world-page-back'); buttons.forEach(b=>b.addEventListener('click',e=>{e.preventDefault();const target=b.dataset.target;if(target)show(target)})); if(worldNext)worldNext.addEventListener('click',turnWorldPage); if(worldBack)worldBack.addEventListener('click',returnWorldPage); restoreCustomNav(); show('accueil');}}catch(e){console.warn(e)}}
+  function restoreCustomNav(){const box=ensureCustomNav(); customIds().forEach(c=>{if(!document.querySelector(`[data-target=\"${c.id}\"]`)){addCustomChapterNav(c.id,c.title)}})}
+  function makeId(title){return 'custom-'+title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')+'-'+Date.now().toString(36)}
+  function customNav(){return document.querySelector('#custom-nav')}
+  function ensureCustomNav(){let box=customNav();if(box)return box; const title=[...document.querySelectorAll('.nav-title')].find(x=>x.textContent.trim()==='Chapitres'); box=document.createElement('div');box.id='custom-nav';box.className='custom-nav';title?.after(box);return box}
+  function addCustomChapterNav(id,title){const box=ensureCustomNav();const b=document.createElement('button');b.className='nav-item';b.dataset.target=id;b.innerHTML='<span>✦</span>'+title;box.appendChild(b);b.addEventListener('click',()=>show(id));}
+  function createChapter(){const title=document.getElementById('new-chapter-title').value.trim();if(!title)return document.getElementById('chapter-status').textContent='Donne un nom au chapitre.';const intro=document.getElementById('new-chapter-intro').value.trim();const body=document.getElementById('new-chapter-body').value.trim();const id=makeId(title);const article=document.createElement('article');article.className='chapter';article.id=id;article.style.display='none';article.innerHTML=`<div class="chapter-kicker">✦ ARCHIVE</div><h1>${esc(title)}</h1><p class="intro">${esc(intro||'Une nouvelle archive vient d’être ouverte.')}</p><section class="section"><h2>Premières notes</h2><p>${esc(body||'Cette page attend encore ses premières informations.')}</p></section>`;document.querySelector('main').appendChild(article);addCustomChapterNav(id,title);const d=serialize();d.customChapters=[...customIds(),{id,title}];localStorage.setItem(KEY,JSON.stringify(d));document.getElementById('chapter-status').textContent='Chapitre créé.';document.getElementById('new-chapter-title').value='';document.getElementById('new-chapter-intro').value='';document.getElementById('new-chapter-body').value='';refreshEditorLists();}
+  function createBlock(){const id=document.getElementById('block-target').value,title=document.getElementById('block-title').value.trim()||'Nouvelle note',text=document.getElementById('block-text').value.trim()||'Archive nouvellement ajoutée.';const ch=document.getElementById(id);if(!ch)return;const sec=document.createElement('section');sec.className='section';sec.innerHTML=`<h2>${esc(title)}</h2><p>${esc(text)}</p>`;ch.appendChild(sec);save();document.getElementById('block-status').textContent='Bloc ajouté et enregistré.';document.getElementById('block-title').value='';document.getElementById('block-text').value='';}
+  function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+  function refreshEditorLists(){const sel=document.getElementById('block-target');sel.innerHTML=[...document.querySelectorAll('main > .chapter')].map(c=>`<option value="${c.id}">${esc(c.querySelector('h1')?.textContent||c.id)}</option>`).join('');const list=document.getElementById('custom-chapter-list');list.innerHTML=customIds().map(c=>`<div class="editor-list-item"><span>${esc(c.title)}</span><span><button type="button" data-open-custom="${c.id}">Ouvrir</button> <button type="button" data-delete-custom="${c.id}">Supprimer</button></span></div>`).join('')||'<div class="editor-hint">Aucun chapitre personnalisé pour le moment.</div>';list.querySelectorAll('[data-open-custom]').forEach(b=>b.onclick=()=>{closeModal();show(b.dataset.openCustom)});list.querySelectorAll('[data-delete-custom]').forEach(b=>b.onclick=()=>{if(!confirm('Supprimer ce chapitre personnalisé ?'))return;document.getElementById(b.dataset.deleteCustom)?.remove();document.querySelector(`#custom-nav [data-target=\"${b.dataset.deleteCustom}\"]`)?.remove();const d=serialize();d.customChapters=customIds().filter(c=>c.id!==b.dataset.deleteCustom);localStorage.setItem(KEY,JSON.stringify(d));refreshEditorLists();document.getElementById('chapter-status').textContent='Chapitre supprimé.'})}
+  document.getElementById('save-edits').onclick=save; document.getElementById('cancel-edits').onclick=()=>{stopEditing(true);startEditing()};document.getElementById('exit-editing').onclick=()=>{stopEditing(false);closeModal()};document.getElementById('create-chapter').onclick=createChapter;document.getElementById('create-block').onclick=createBlock;
+  document.querySelectorAll('.editor-tab').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('.editor-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.editor-panel').forEach(p=>p.classList.remove('active'));tab.classList.add('active');document.querySelector(`[data-editor-panel="${tab.dataset.editorTab}"]`).classList.add('active');refreshEditorLists()}));
+  document.getElementById('export-data').onclick=()=>{const blob=new Blob([JSON.stringify(serialize(),null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='elementalis-archives.json';a.click();URL.revokeObjectURL(a.href);document.getElementById('data-status').textContent='Export créé.'};
+  document.getElementById('import-data').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d.main)throw Error();localStorage.setItem(KEY,JSON.stringify(d));location.reload()}catch(err){document.getElementById('data-status').textContent='Fichier invalide.'}};r.readAsText(f)});
+  document.getElementById('reset-data').onclick=()=>{if(confirm('Réinitialiser toutes les modifications enregistrées sur cet appareil ?')){localStorage.removeItem(KEY);location.reload()}};
+  document.getElementById('change-password').onclick=async()=>{const a=document.getElementById('new-password').value,b=document.getElementById('new-password-confirm').value;if(!a||a!==b){document.getElementById('password-status').textContent='Les deux mots de passe doivent être identiques.';return}localStorage.setItem(PASS,await sha(a));document.getElementById('password-status').textContent='Mot de passe modifié.';document.getElementById('new-password').value='';document.getElementById('new-password-confirm').value=''};
+
+  /* ===== Synchronisation cloud Supabase ===== */
+  const CLOUD_KEY='elementalis-cloud-v1';
+  let supa=null;
+  function cloudConfig(){
+    try{return JSON.parse(localStorage.getItem(CLOUD_KEY)||'{}')}catch(e){return {}}
+  }
+  function setCloudStatus(msg,good=false){
+    const el=document.getElementById('cloud-status'); if(el){el.textContent=msg;el.classList.toggle('good',good);}
+  }
+  function fillCloudConfig(){
+    const c=cloudConfig();
+    document.getElementById('cloud-url').value=c.url||'';
+    document.getElementById('cloud-anon').value=c.anon||'';
+    document.getElementById('cloud-email').value=c.email||'';
+  }
+  async function initCloud(){
+    const c=cloudConfig();
+    if(c.url&&c.anon&&window.supabase){
+      try{
+        supa=window.supabase.createClient(c.url,c.anon,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+        const {data}=await supa.auth.getSession();
+        if(data?.session){
+          setCloudStatus('✓ Session cloud active pour '+(data.session.user.email||'ce compte')+'.',true);
+        }else{
+          setCloudStatus('Configuration cloud chargée. Connecte-toi pour synchroniser.');
+        }
+        supa.auth.onAuthStateChange((event,session)=>{
+          if(event==='SIGNED_IN' && session) setCloudStatus('✓ Connecté. Tes archives peuvent maintenant être synchronisées.',true);
+          if(event==='SIGNED_OUT') setCloudStatus('Déconnecté du cloud.');
+          if(event==='USER_UPDATED') setCloudStatus('✓ Compte confirmé / mis à jour.',true);
+        });
+      }catch(e){setCloudStatus('Configuration cloud invalide : '+(e.message||e))}
+    } else setCloudStatus('Cloud non configuré.');
+  }
+  async function cloudConnect(){
+    const url=document.getElementById('cloud-url').value.trim().replace(/\/$/,'');
+    const anon=document.getElementById('cloud-anon').value.trim();
+    const email=document.getElementById('cloud-email').value.trim();
+    const pass=document.getElementById('cloud-password').value;
+    if(!url||!anon||!email||!pass){setCloudStatus('Renseigne les 4 champs cloud.');return}
+    if(!window.supabase){setCloudStatus('La bibliothèque cloud n’est pas disponible. Vérifie ta connexion Internet.');return}
+    try{
+      supa=window.supabase.createClient(url,anon);
+      localStorage.setItem(CLOUD_KEY,JSON.stringify({url,anon,email}));
+      const {error}=await supa.auth.signInWithPassword({email,password:pass});
+      if(error) throw error;
+      setCloudStatus('✓ Connecté. Tes archives peuvent maintenant être synchronisées.',true);
+    }catch(e){setCloudStatus('Connexion impossible : '+(e.message||e))}
+  }
+  function cloudRedirectUrl(){
+    return window.location.origin + window.location.pathname;
+  }
+  async function cloudSignup(){
+    const url=document.getElementById('cloud-url').value.trim().replace(/\/$/,'');
+    const anon=document.getElementById('cloud-anon').value.trim();
+    const email=document.getElementById('cloud-email').value.trim();
+    const pass=document.getElementById('cloud-password').value;
+    if(!url||!anon||!email||!pass){setCloudStatus('Renseigne les 4 champs cloud.');return}
+    try{
+      if(!window.supabase) throw new Error('La bibliothèque Supabase n’est pas chargée.');
+      supa=window.supabase.createClient(url,anon,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+      localStorage.setItem(CLOUD_KEY,JSON.stringify({url,anon,email}));
+      setCloudStatus('Connexion à Supabase…');
+      const {data,error}=await supa.auth.signUp({
+        email,password:pass,
+        options:{emailRedirectTo:cloudRedirectUrl()}
+      });
+      if(error) throw error;
+      if(data.session){
+        setCloudStatus('✓ Compte créé et connecté. Tu peux maintenant enregistrer tes archives.',true);
+      }else{
+        setCloudStatus('✓ Compte créé. Un e-mail de confirmation a été envoyé. Le bouton de l’e-mail doit revenir sur '+cloudRedirectUrl()+'.',true);
+      }
+    }catch(e){setCloudStatus('Création impossible : '+(e.message||e))}
+  }
+  async function cloudResend(){
+    const url=document.getElementById('cloud-url').value.trim().replace(/\/$/,'');
+    const anon=document.getElementById('cloud-anon').value.trim();
+    const email=document.getElementById('cloud-email').value.trim();
+    if(!url||!anon||!email){setCloudStatus('Renseigne l’URL, la clé publique et l’e-mail.');return}
+    try{
+      if(!window.supabase) throw new Error('La bibliothèque Supabase n’est pas chargée.');
+      supa=window.supabase.createClient(url,anon,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+      localStorage.setItem(CLOUD_KEY,JSON.stringify({url,anon,email}));
+      setCloudStatus('Envoi d’un nouvel e-mail de confirmation…');
+      const {error}=await supa.auth.resend({type:'signup',email,options:{emailRedirectTo:cloudRedirectUrl()}});
+      if(error) throw error;
+      setCloudStatus('✓ E-mail de confirmation renvoyé. Vérifie aussi tes spams.',true);
+    }catch(e){setCloudStatus('Envoi impossible : '+(e.message||e))}
+  }
+  async function ensureCloud(){
+    if(!supa) await initCloud();
+    if(!supa)return null;
+    const {data}=await supa.auth.getUser();
+    return data?.user||null;
+  }
+  async function cloudPush(){
+    const user=await ensureCloud();
+    if(!user){setCloudStatus('Connecte-toi d’abord au cloud.');return}
+    try{
+      const payload=serialize();
+      const {error}=await supa.from('elementalis_documents').upsert(
+        {owner:user.id,document_id:'main',data:payload,updated_at:new Date().toISOString()},
+        {onConflict:'owner,document_id'}
+      );
+      if(error)throw error;
+      setCloudStatus('✓ Archives envoyées dans le cloud.',true);
+    }catch(e){setCloudStatus('Envoi impossible : '+(e.message||e))}
+  }
+  async function cloudPull(){
+    const user=await ensureCloud();
+    if(!user){setCloudStatus('Connecte-toi d’abord au cloud.');return}
+    try{
+      const {data,error}=await supa.from('elementalis_documents').select('data,updated_at').eq('owner',user.id).eq('document_id','main').maybeSingle();
+      if(error)throw error;
+      if(!data?.data){setCloudStatus('Aucune archive cloud trouvée pour ce compte.');return}
+      if(!confirm('Remplacer les archives locales par la version cloud ?'))return;
+      localStorage.setItem(KEY,JSON.stringify(data.data));
+      location.reload();
+    }catch(e){setCloudStatus('Chargement impossible : '+(e.message||e))}
+  }
+  async function cloudLogout(){
+    if(supa)await supa.auth.signOut();
+    setCloudStatus('Déconnecté du cloud.');
+  }
+  document.getElementById('cloud-connect').onclick=cloudConnect;
+  document.getElementById('cloud-signup').onclick=cloudSignup;
+  document.getElementById('cloud-resend').onclick=cloudResend;
+  document.getElementById('cloud-push').onclick=cloudPush;
+  document.getElementById('cloud-pull').onclick=cloudPull;
+  document.getElementById('cloud-logout').onclick=cloudLogout;
+  document.getElementById('save-edits').addEventListener('click',()=>{if(cloudConfig().url&&cloudConfig().anon){setTimeout(()=>cloudPush(),50)}});
+  fillCloudConfig(); initCloud();
+
+  restoreSaved();
+  refreshEditorLists();
+});
+
+</script>
+<style>
+/* ===== Mode édition Elementalis ===== */
+.editor-status.good{color:#d5b86b;border-color:#6d5633;background:rgba(95,72,35,.18)}
+#edit-entry{position:fixed;left:18px;bottom:18px;z-index:5000;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:150px !important;max-width:calc(100vw - 36px);min-width:0;border:1px solid #60482d;background:linear-gradient(135deg,#231a14,#17110e);color:#d9c39b;padding:11px 12px;border-radius:9px;cursor:pointer;font-size:13px;text-align:left;transition:.2s}
+#edit-entry:hover{border-color:#a77b45;box-shadow:0 8px 22px rgba(0,0,0,.18)}
+#edit-entry .edit-icon{margin-right:8px;flex:0 0 auto}#edit-entry{white-space:nowrap}
+body.editing [contenteditable="true"]{outline:1px dashed rgba(197,154,90,.45);outline-offset:4px;border-radius:4px;cursor:text}
+body.editing [contenteditable="true"]:focus{outline:1px solid #c59a5a;background:rgba(197,154,90,.045)}
+#editor-modal{position:fixed;inset:0;z-index:9999;display:none;background:rgba(4,3,2,.78);backdrop-filter:blur(7px);align-items:center;justify-content:center;padding:20px}
+#editor-modal.open{display:flex}
+.editor-window{width:min(980px,96vw);max-height:92vh;overflow:auto;background:linear-gradient(145deg,#201711,#110d0b);border:1px solid #705234;border-radius:16px;box-shadow:0 30px 100px rgba(0,0,0,.65);padding:22px}
+.editor-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;border-bottom:1px solid #493725;padding-bottom:16px;margin-bottom:16px}.editor-head h2{font-family:Georgia,serif;color:#e5c58e;margin:0;font-size:27px}.editor-head p{color:#968875;margin:5px 0 0;font-size:12px}
+.editor-close{border:1px solid #5b422c;background:#18110e;color:#cdb48a;border-radius:8px;padding:8px 12px;cursor:pointer}
+.editor-grid{display:grid;grid-template-columns:220px 1fr;gap:18px}.editor-tabs{display:flex;flex-direction:column;gap:7px}.editor-tab{border:1px solid #463426;background:#17110e;color:#bfae98;padding:10px 11px;border-radius:8px;text-align:left;cursor:pointer}.editor-tab.active,.editor-tab:hover{border-color:#8b653d;background:#241a14;color:#ead7b7}.editor-panel{display:none}.editor-panel.active{display:block}.editor-label{display:block;color:#caa66e;font-size:11px;text-transform:uppercase;letter-spacing:1.4px;font-weight:800;margin:14px 0 7px}.editor-input,.editor-textarea{width:100%;background:#0f0c0a;color:#e8decd;border:1px solid #493725;border-radius:8px;padding:10px;font:inherit}.editor-textarea{min-height:120px;resize:vertical;line-height:1.6}.editor-select{width:100%;background:#0f0c0a;color:#e8decd;border:1px solid #493725;border-radius:8px;padding:10px}.editor-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.editor-btn{border:1px solid #60482d;background:#211711;color:#e2c89a;padding:9px 12px;border-radius:8px;cursor:pointer}.editor-btn.primary{background:#624526;color:#fff0cf;border-color:#9b7143}.editor-btn.danger{border-color:#633c35;color:#e1a89b}.editor-hint{color:#8f8170;font-size:12px;line-height:1.6;margin:9px 0}.editor-list{display:grid;gap:7px;max-height:330px;overflow:auto;padding-right:4px}.editor-list-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 10px;background:#16100d;border:1px solid #3c2d22;border-radius:8px}.editor-list-item span{color:#c7b8a4;font-size:13px}.editor-list-item button{border:1px solid #58412c;background:#201711;color:#d6bd94;border-radius:7px;padding:5px 8px;cursor:pointer}
+.editor-hint code{color:#e1c58f;background:#120e0b;padding:2px 5px;border-radius:4px}.editor-status{margin-top:12px;color:#9e8c76;font-size:12px;min-height:18px}.editor-lock{max-width:420px}.editor-lock .seal{font-size:38px;text-align:center;color:#b78a51;margin-bottom:6px}.editor-lock h3{font-family:Georgia,serif;text-align:center;color:#e4c28d;margin:5px 0 8px}.editor-lock p{text-align:center;color:#968977;font-size:12px;line-height:1.6}.editor-lock .editor-input{margin-top:10px}.editor-auth-actions{display:flex;gap:8px;justify-content:center;margin-top:12px}
+@media(max-width:760px){.editor-grid{grid-template-columns:1fr}.editor-tabs{display:grid;grid-template-columns:1fr 1fr}.editor-tab{font-size:12px}.editor-window{padding:15px}}
+</style>
+
+<button id="edit-entry" type="button" title="Ouvrir le mode édition"><span class="edit-icon">✎</span>Mode édition</button>
+
+<div id="editor-modal" aria-hidden="true">
+  <div class="editor-window">
+    <div class="editor-head">
+      <div><h2>Atelier de l’archiviste</h2><p>Modifie les archives directement dans Elementalis. Les changements sont enregistrés sur cet appareil et peuvent aussi être synchronisés dans le cloud.</p></div>
+      <button class="editor-close" id="editor-close" type="button">Fermer</button>
+    </div>
+    <div id="editor-login" class="editor-lock">
+      <div class="seal">✦</div><h3>Accès aux archives privées</h3>
+      <p>Le mode édition de cette version fonctionne localement. Pour une vraie sécurité en ligne, il faudrait un serveur. Le mot de passe initial est <strong>elementalis</strong> et peut être changé ensuite.</p>
+      <input class="editor-input" id="editor-password" type="password" placeholder="Mot de passe" autocomplete="current-password">
+      <div class="editor-auth-actions"><button class="editor-btn primary" id="editor-login-btn" type="button">Entrer dans les archives</button></div>
+      <div class="editor-status" id="editor-login-status"></div>
+    </div>
+    <div id="editor-app" style="display:none">
+      <div class="editor-grid">
+        <div class="editor-tabs">
+          <button class="editor-tab active" data-editor-tab="content">✎ Modifier les textes</button>
+          <button class="editor-tab" data-editor-tab="chapters">＋ Ajouter un chapitre</button>
+          <button class="editor-tab" data-editor-tab="blocks">▤ Ajouter un bloc</button>
+          <button class="editor-tab" data-editor-tab="data">⇅ Sauvegarde / données</button>
+          <button class="editor-tab" data-editor-tab="cloud">☁ Cloud / synchronisation</button>
+          <button class="editor-tab" data-editor-tab="password">⚿ Mot de passe</button>
+        </div>
+        <div>
+          <section class="editor-panel active" data-editor-panel="content">
+            <p class="editor-hint">Active l’édition libre : les titres, introductions, paragraphes, cartes d’univers et textes visibles peuvent être modifiés directement sur la page. Clique sur « Enregistrer » quand tu as terminé.</p>
+            <div class="editor-actions"><button class="editor-btn primary" id="save-edits" type="button">Enregistrer les modifications</button><button class="editor-btn" id="cancel-edits" type="button">Annuler les modifications</button><button class="editor-btn" id="exit-editing" type="button">Quitter le mode édition</button></div>
+            <div class="editor-status" id="editor-content-status"></div>
+          </section>
+
+          <section class="editor-panel" data-editor-panel="chapters">
+            <label class="editor-label">Nom du chapitre</label><input class="editor-input" id="new-chapter-title" placeholder="Ex. Les anciennes cités">
+            <label class="editor-label">Introduction</label><textarea class="editor-textarea" id="new-chapter-intro" placeholder="Une courte phrase d’introduction…"></textarea>
+            <label class="editor-label">Contenu initial</label><textarea class="editor-textarea" id="new-chapter-body" placeholder="Le texte de la première section…"></textarea>
+            <div class="editor-actions"><button class="editor-btn primary" id="create-chapter" type="button">Créer le chapitre</button></div><div class="editor-status" id="chapter-status"></div>
+            <label class="editor-label">Chapitres personnalisés</label><div class="editor-list" id="custom-chapter-list"></div>
+          </section>
+
+          <section class="editor-panel" data-editor-panel="blocks">
+            <label class="editor-label">Chapitre cible</label><select class="editor-select" id="block-target"></select>
+            <label class="editor-label">Titre du bloc</label><input class="editor-input" id="block-title" placeholder="Ex. Une note oubliée">
+            <label class="editor-label">Texte</label><textarea class="editor-textarea" id="block-text" placeholder="Ajoute ici un nouveau morceau de lore…"></textarea>
+            <div class="editor-actions"><button class="editor-btn primary" id="create-block" type="button">Ajouter le bloc</button></div><div class="editor-status" id="block-status"></div>
+          </section>
+
+          <section class="editor-panel" data-editor-panel="data">
+            <p class="editor-hint">Les données sont stockées dans le navigateur. L’export te permet de conserver une copie et de la réimporter plus tard sur ce site.</p>
+            <div class="editor-actions"><button class="editor-btn primary" id="export-data" type="button">Exporter les archives</button><label class="editor-btn" for="import-data" style="cursor:pointer">Importer des archives</label><input id="import-data" type="file" accept="application/json" style="display:none"><button class="editor-btn danger" id="reset-data" type="button">Réinitialiser les modifications</button></div>
+            <div class="editor-status" id="data-status"></div>
+          </section>
+
+          <section class="editor-panel" data-editor-panel="cloud">
+            <p class="editor-hint"><strong>Synchronisation facultative.</strong> Configure une fois ton projet Supabase ci-dessous, puis utilise « Enregistrer dans le cloud » ou « Charger depuis le cloud ». La configuration reste dans ce navigateur ; ta clé doit être la clé publique/publishable, jamais une clé secrète ou service_role.</p>
+            <label class="editor-label">URL du projet Supabase</label>
+            <input class="editor-input" id="cloud-url" placeholder="https://xxxx.supabase.co">
+            <label class="editor-label">Clé anon (publique)</label>
+            <input class="editor-input" id="cloud-anon" type="password" placeholder="sb_publishable_... ou clé anon publique">
+            <div class="editor-actions">
+              <button class="editor-btn primary" id="cloud-connect" type="button">Se connecter</button>
+              <button class="editor-btn" id="cloud-signup" type="button">Créer mon compte</button>
+              <button class="editor-btn" id="cloud-resend" type="button">✉ Renvoyer l’e-mail</button>
+              <button class="editor-btn" id="cloud-logout" type="button">Déconnexion</button>
+            </div>
+            <label class="editor-label">E-mail du compte cloud</label>
+            <input class="editor-input" id="cloud-email" type="email" placeholder="toi@exemple.fr">
+            <label class="editor-label">Mot de passe du compte cloud</label>
+            <input class="editor-input" id="cloud-password" type="password" placeholder="Mot de passe Supabase">
+            <p class="editor-hint">Pour la confirmation, Supabase doit autoriser <code>http://localhost:3000/**</code> dans Authentication → URL Configuration → Redirect URLs.</p>
+            <div class="editor-actions">
+              <button class="editor-btn primary" id="cloud-pull" type="button">☁ Charger depuis le cloud</button>
+              <button class="editor-btn" id="cloud-push" type="button">☁ Enregistrer dans le cloud</button>
+            </div>
+            <div class="editor-status" id="cloud-status">Cloud non configuré.</div>
+          </section>
+
+          <section class="editor-panel" data-editor-panel="password">
+            <p class="editor-hint">Tu peux remplacer le mot de passe local. Si tu effaces les données du navigateur, le mot de passe initial redeviendra <strong>elementalis</strong>.</p>
+            <label class="editor-label">Nouveau mot de passe</label><input class="editor-input" id="new-password" type="password">
+            <label class="editor-label">Confirmer</label><input class="editor-input" id="new-password-confirm" type="password">
+            <div class="editor-actions"><button class="editor-btn primary" id="change-password" type="button">Changer le mot de passe</button></div><div class="editor-status" id="password-status"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
